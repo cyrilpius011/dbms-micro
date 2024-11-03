@@ -121,5 +121,3 @@ CREATE TABLE SaleDetails (
 - cyrilpius011@gmail.com
 - https://github.com/cyrilpius011
 
-## License
-- Information about the license under which the project is released.
