@@ -1,0 +1,195 @@
+mysql> CREATE TABLE Customer (CustomerID INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(20), Address VARCHAR(20), Phone VARCHAR(15), Email VARCHAR(30) UNIQUE,Password VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| CustomerID | int         | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Address    | varchar(20) | YES  |     | NULL    |       |
+| Phone      | varchar(15) | YES  |     | NULL    |       |
+| Email      | varchar(30) | YES  | UNI | NULL    |       |
+| Password   | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql>INSERT INTO Customer (CustomerID, Name, Address, Phone, Email, Password) VALUES
+(1, 'John Doe', '123 Main St', '555-1234', 'johndoe@example.com', 'password1');
+
+mysql> select *from customer;
++------------+----------+-------------+----------+---------------------+-----------+
+| CustomerID | Name     | Address     | Phone    | Email               | Password  |
++------------+----------+-------------+----------+---------------------+-----------+
+|          1 | John Doe | 123 Main St | 555-1234 | johndoe@example.com | password1 |
++------------+----------+-------------+----------+---------------------+-----------+
+
+
+
+
+
+mysql> CREATE TABLE Employee (EmployeeID INT AUTO_INCREMENT PRIMARY KEY ,Name VARCHAR(20),  Designation VARCHAR(20), Phone VARCHAR(15), HireDate DATE,Email VARCHAR(30) UNIQUE,Password VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc Employee;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| EmployeeID  | int         | NO   | PRI | NULL    | auto_increment |
+| Name        | varchar(20) | YES  |     | NULL    |                |
+| Designation | varchar(20) | YES  |     | NULL    |                |
+| Phone       | varchar(15) | YES  |     | NULL    |                |
+| HireDate    | date        | YES  |     | NULL    |                |
+| Email       | varchar(30) | YES  | UNI | NULL    |                |
+| Password    | varchar(20) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+mysql>INSERT INTO Employee (EmployeeID, Name, Designation, Phone, HireDate,Email) VALUES
+(001, 'Rob Stark', 'Veterinarian', '555-0123', '2021-03-15','Rob21@gmail.com');
+
+mysql> select *from employee;
++------------+---------------+-------------+----------+------------+---------------------+--------------+
+| EmployeeID | Name          | Designation | Phone    | HireDate   | Email               | Password     |
++------------+---------------+-------------+----------+------------+---------------------+--------------+
+|       1001 | Alice Johnson | Manager     | 555-0123 | 2021-03-15 | Alice2021@gmail.com | password1001 |
++------------+---------------+-------------+----------+------------+---------------------+--------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+mysql> CREATE TABLE Animal (AnimalID INT PRIMARY KEY, Animal VARCHAR(20), Count INT);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc Animal;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| AnimalID | int         | NO   | PRI | NULL    |       |
+| Animal   | varchar(20) | YES  |     | NULL    |       |
+| Count    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>INSERT INTO Animal (AnimalID, Animal, Count) VALUES
+(1, 'Cow', 10),
+(2, 'Chicken', 50),
+(3, 'Goat', 25),
+(4, 'Duck',50);
+
+mysql> select *from animal;
++----------+---------+-------+
+| AnimalID | Animal  | Count |
++----------+---------+-------+
+|        1 | Cow     |    10 |
+|        2 | Chicken |    50 |
+|        3 | Goat    |    25 |
+|        4 | Duck    |    50 |
++----------+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+mysql> CREATE TABLE Produce (ProduceID INT PRIMARY KEY, Type VARCHAR(20), Quantity INT, DateCollected DATE, AnimalID INT, CONSTRAINT afk FOREIGN KEY (AnimalID) REFERENCES Animal(AnimalID),UnitPrice DECIMAL(6,2));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc Produce;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| ProduceID     | int          | NO   | PRI | NULL    |       |
+| Type          | varchar(20)  | YES  |     | NULL    |       |
+| Quantity      | int          | YES  |     | NULL    |       |
+| DateCollected | date         | YES  |     | NULL    |       |
+| AnimalID      | int          | YES  | MUL | NULL    |       |
+| UnitPrice     | decimal(6,2) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>
+INSERT INTO Produce (ProduceID, Type, Quantity, DateCollected, AnimalID, UnitPrice) VALUES
+(1, 'Cow Milk', 30, '2023-10-01', 1,58),
+(2, 'Chiken Eggs', 45, '2023-10-01',2, 6),
+(3, 'Goat Milk', 40, '2023-10-01',3, 70),
+(4, 'Duck Egg', 40, '2023-10-01',4, 9);
+
+mysql> select *from produce;
++-----------+-------------+----------+---------------+----------+-----------+
+| ProduceID | Type        | Quantity | DateCollected | AnimalID | UnitPrice |
++-----------+-------------+----------+---------------+----------+-----------+
+|         1 | Cow Milk    |       30 | 2023-10-01    |        1 |     58.00 |
+|         2 | Chiken Eggs |       45 | 2023-10-01    |        2 |      6.00 |
+|         3 | Goat Milk   |       40 | 2023-10-01    |        3 |     70.00 |
+|         4 | Duck Egg    |       40 | 2023-10-01    |        4 |      9.00 |
++-----------+-------------+----------+---------------+----------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+mysql> CREATE TABLE Sales (SaleID INT AUTO_INCREMENT PRIMARY KEY, SaleDate DATE, Amount DECIMAL(10, 2));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc Sales;
++----------+---------------+------+-----+---------+----------------+
+| Field    | Type          | Null | Key | Default | Extra          |
++----------+---------------+------+-----+---------+----------------+
+| SaleID   | int           | NO   | PRI | NULL    | auto_increment |
+| SaleDate | date          | YES  |     | NULL    |                |
+| Amount   | decimal(10,2) | YES  |     | NULL    |                |
++----------+---------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>INSERT INTO Sales (SaleDate, Amount) VALUES
+('2023-10-02', 60.00);
+
+mysql> select *from sales;
++--------+------------+--------+
+| SaleID | SaleDate   | Amount |
++--------+------------+--------+
+|      1 | 2023-10-02 | 60.00  |
++--------+------------+--------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+mysql> CREATE TABLE SaleDetails (SaleID INT,ProduceID INT,Count INT,Amount DECIMAL(10, 2),CONSTRAINT sdpk PRIMARY KEY(SaleID,ProduceID),CONSTRAINT sdfk1 FOREIGN KEY(SaleID) REFERENCES Sales(SaleID),CONSTRAINT sdfk2 FOREIGN KEY(ProduceID) REFERENCES Produce(ProduceID));
+
+mysql> desc SaleDetails;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| SaleID    | int           | NO   | PRI | NULL    |       |
+| ProduceID | int           | NO   | PRI | NULL    |       |
+| Count     | int           | YES  |     | NULL    |       |
+| Amount    | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql>INSERT INTO SaleDetails (SaleID, ProduceID, Count, Amount) VALUES
+(1, 2, 10, 60.00);
+
+mysql> select *from saledetails;
++--------+-----------+-------+--------+
+| SaleID | ProduceID | Count | Amount |
++--------+-----------+-------+--------+
+|      1 |         2 |    10 |  60.00 |
++--------+-----------+-------+--------+
+1 row in set (0.00 sec)
+
+
+
